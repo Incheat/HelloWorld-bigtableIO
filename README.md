@@ -1,5 +1,3 @@
-# HelloWorld-bigtableIO
-
 ## Ref
 - https://beam.apache.org/releases/javadoc/2.58.0/org/apache/beam/sdk/io/gcp/bigtable/BigtableIO.html
 - https://github.com/apache/beam/blob/master/sdks/java/io/google-cloud-platform/src/main/java/org/apache/beam/sdk/io/gcp/bigtable/BigtableIO.java
