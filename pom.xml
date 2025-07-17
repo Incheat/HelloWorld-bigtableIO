@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2015 Google Inc. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<project>
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.google.cloud.bigtable.dataflow</groupId>
+	<artifactId>dataflow-connector-examples</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <properties>
+    <beam.version>2.58.0</beam.version>
+    <bigtable.version>2.15.0</bigtable.version>
+    <slf4j.version>1.7.36</slf4j.version>
+    <region>asia-northeast1</region>
+    <network>default</network>
+    <subnetwork></subnetwork>
+    <serviceAccount></serviceAccount>
+    <usePublicIps>true</usePublicIps>
+    <headers></headers>
+    <bigtable.hbase.version>${bigtable.version}</bigtable.hbase.version>
+    <maven.compiler.target>11</maven.compiler.target>
+    <maven.compiler.source>11</maven.compiler.source>
+     <java.version>11</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>snapshots-repo</id>
+      <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+      <releases><enabled>false</enabled></releases>
+      <snapshots><enabled>true</enabled></snapshots>
+    </repository>
+  </repositories>
+
+  <dependencies>
+     <dependency>
+       <groupId>org.apache.beam</groupId>
+       <artifactId>beam-runners-google-cloud-dataflow-java</artifactId>
+       <version>${beam.version}</version>
+    </dependency>
+
+    <!-- [START bigtable_dataflow_connector_dep] -->
+    <dependency>
+        <groupId>com.google.cloud.bigtable</groupId>
+        <artifactId>bigtable-hbase-beam</artifactId>
+        <version>${bigtable.version}</version>
+        <exclusions>
+          <exclusion>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+          </exclusion>
+        </exclusions>
+    </dependency>
+    <!-- [END bigtable_dataflow_connector_dep] -->
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-csv</artifactId>
+      <version>1.9.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-lang3</artifactId>
+      <version>3.12.0</version>
+    </dependency>
+
+
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>${slf4j.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-simple</artifactId>
+        <version>${slf4j.version}</version>
+    </dependency>
+
+ </dependencies>
+  <profile>
+    <id>HelloWorldWrite</id>
+      <activation>
+          <property>
+              <name>HelloWorldWrite</name>
+          </property>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>exec-maven-plugin</artifactId>
+            <version>1.4.0</version>
+            <configuration>
+              <executable>java</executable>
+              <arguments>
+                <argument>-classpath</argument>
+                <classpath/>
+                <argument>com.google.cloud.bigtable.dataflow.example.HelloWorldWrite</argument>
+                <argument>--runner=dataflow</argument>
+                <argument>--project=${bigtable.projectID}</argument>
+                <argument>--bigtableProjectId=${bigtable.projectID}</argument>
+                <argument>--bigtableInstanceId=${bigtable.instanceID}</argument>
+                <argument>--bigtableTableId=${bigtable.tableID}</argument>
+                <argument>--stagingLocation=${gs}/staging</argument>
+                <argument>--region=${bigtable.region}</argument>
+              </arguments>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+  </profile>
+</project>
