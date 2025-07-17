@@ -9,4 +9,4 @@
 gcloud auth application-default login
 
 ## Run Command - execute
-mvn package exec:exec -DHelloWorldWrite -Dbigtable.projectID=[PROJECT_ID] -Dbigtable.instanceID=[BIGTABLE_INSTANCE] -Dbigtable.tableID=[BIGTABLE_TABLE] -Dbigtable.region=[BIGTABLE_REGION] -Dgs=gs://[STAGE_GCS_BUCKET]
+mvn package exec:exec -DHelloWorldWrite -Dbigtable.projectID=<PROJECT_ID> -Dbigtable.instanceID=<BIGTABLE_INSTANCE> -Dbigtable.tableID=<BIGTABLE_TABLE> -Dbigtable.region=<BIGTABLE_REGION> -Dgs=gs://<STAGE_GCS_BUCKET>
