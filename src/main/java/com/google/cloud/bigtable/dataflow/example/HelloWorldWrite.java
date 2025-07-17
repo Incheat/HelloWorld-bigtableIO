@@ -97,8 +97,9 @@ public class HelloWorldWrite {
 
         CloudBigtableOptions options =
             PipelineOptionsFactory.fromArgs(args).withValidation().as(CloudBigtableOptions.class);
-        SdkHarnessOptions loggingOptions = options.as(SdkHarnessOptions.class);
+        
         // Overrides the default log level on the worker to emit logs at TRACE or higher. https://cloud.google.com/dataflow/docs/guides/logging#SettingLevels
+        SdkHarnessOptions loggingOptions = options.as(SdkHarnessOptions.class);
         loggingOptions.setDefaultSdkHarnessLogLevel(SdkHarnessOptions.LogLevel.TRACE);
         
         Pipeline pipeline = Pipeline.create(options);
